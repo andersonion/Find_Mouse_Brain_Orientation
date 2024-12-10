@@ -1,0 +1,8 @@
+name: fmbo_env
+dependencies:
+  - python=3.11
+  - conda-forge::nibabel=5.1.*
+  - numpy=1.26.*
+  - pandas=2.1*
+  - tensorflow=2.17.*
+  - scipy=1.11.*
