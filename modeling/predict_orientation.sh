@@ -18,6 +18,7 @@ exam=${exam%_}
 parent_path=~/ 
 tmp=${parent_path}/fmbi_${exam}_tmp
 script_dir=${SAMBA_APPS_DIR}/Find_Mouse_Brain_Orientation/modeling
+conda activate ${SAMBA_APPS_DIR}/Find_Mouse_Brain_Orientation/fmbo_env
 echo "script_dir = ${script_dir}"
 echo "Writing tmp directory..."
 mkdir ${tmp}
