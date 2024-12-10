@@ -14,20 +14,21 @@ import random # used to create a .keras model run number
 from scipy.ndimage import zoom
 import subprocess, sys
 # from sklearn.model_selection import train_test_split
-#try:
-from tensorflow.keras.models import load_model
-#except:
-#    subprocess.check_call([sys.executable, "-m", "pip", "install", "tensorflow"])
-#    from tensorflow.keras.models import load_model
-from tensorflow.keras import layers, models, Input
+try:
+    from tensorflow.keras.models import load_model
+    from tensorflow.keras import layers, models, Input
+except:
+    from tensorflow.python.keras.models import load_model
+    from tensorflow.python.keras import layers, models, Input
 import tensorflow as tf
-#subprocess.check_call([sys.executable, "-m", "pip", "install", "numpy==1.24.3"])
 import numpy as np
 
 path1=os.path.abspath(os.path.dirname(__file__))
 #### load model
 model_id=[8581]
-model = load_model(str(path1[0])+"/od1_model_rev1_run"+str(model_id[0])+".keras")
+model_path = path1+"/od1_model_rev1_run"+str(model_id[0])+".keras"
+print("model_path = " + model_path)
+model = load_model(model_path)
 model.summary()
 
 #### load dictionary
@@ -39,7 +40,7 @@ label_dict = pd.Series(label_df.name.values, index=label_df.label).to_dict()
 
 im_test=[]
 nifti_file = sys.argv[1] # Folder containing your .nii.gz files
-img1 = nib.load(str(nifti_file[0]))
+img1 = nib.load(str(nifti_file))
 mask = img1.get_fdata()
 
 rows, cols, slices = np.where(mask)
@@ -73,7 +74,7 @@ output_df = pd.DataFrame({
 })
 
 # Export to CSV
-output_df.to_csv(str(path1[0])+"/prediction_report.csv", index=False)
+output_df.to_csv(str(path1)+"/prediction_report.csv", index=False)
 print("Predictions saved to predictions_report")
 
 

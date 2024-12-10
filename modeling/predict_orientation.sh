@@ -16,7 +16,7 @@ exam=${mask##*/};
 exam=${exam%%mask*}
 exam=${exam%_}
 parent_path=~/ 
-tmp=${parent_path}/fmbi_${exam}_tmp
+tmp=${parent_path}/fmbo_${exam}_tmp
 script_dir=${SAMBA_APPS_DIR}/Find_Mouse_Brain_Orientation/modeling
 source activate ${SAMBA_APPS_DIR}/Find_Mouse_Brain_Orientation/fmbo_env
 echo "script_dir = ${script_dir}"
@@ -25,8 +25,8 @@ mkdir ${tmp}
 cp -r ${script_dir}/* ${tmp}/
 sed "s/#exam_id = ###input_exam###/exam_id = [\"$exam\"]/g" ${script_dir}/tf_orientation_template.py > ${tmp}/tf_orientation_temp.py
 python ${tmp}/tf_orientation_temp.py ${mask}
-echo "Cleaning tmp directory..."
-rm -r  ${tmp}
+#echo "Cleaning tmp directory..."
+#rm -r  ${tmp}
 
 
 
