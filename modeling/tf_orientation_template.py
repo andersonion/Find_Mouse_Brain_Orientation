@@ -10,15 +10,21 @@
 import nibabel as nib
 import pandas as pd
 import os # used to read the number of .nii.gz files 
-import numpy as np
 import random # used to create a .keras model run number
 from scipy.ndimage import zoom
-import tensorflow as tf
-# from tensorflow.keras import layers, models, Input
+import subprocess, sys
 # from sklearn.model_selection import train_test_split
+#try:
 from tensorflow.keras.models import load_model
+#except:
+#    subprocess.check_call([sys.executable, "-m", "pip", "install", "tensorflow"])
+#    from tensorflow.keras.models import load_model
+from tensorflow.keras import layers, models, Input
+import tensorflow as tf
+#subprocess.check_call([sys.executable, "-m", "pip", "install", "numpy==1.24.3"])
+import numpy as np
 
-path1=["path/to/files"]
+path1=os.path.abspath(os.path.dirname(__file__))
 #### load model
 model_id=[8581]
 model = load_model(str(path1[0])+"/od1_model_rev1_run"+str(model_id[0])+".keras")
@@ -32,7 +38,7 @@ label_dict = pd.Series(label_df.name.values, index=label_df.label).to_dict()
 #exam_id = ###input_exam###
 
 im_test=[]
-nifti_file = [str(path1[0])+"/github/test_masks/"+str(exam_id[0])] # Folder containing your .nii.gz files
+nifti_file = sys.argv[1] # Folder containing your .nii.gz files
 img1 = nib.load(str(nifti_file[0]))
 mask = img1.get_fdata()
 
