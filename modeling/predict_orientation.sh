@@ -10,15 +10,22 @@
 #$ -M email@email.com
 
 #### use case: qsub -l h_vmem=64G predict_orientation.sh M22090514_dwi_mask_OF_prepped_AIL.nii.gz
-
-exam=$1
-parent_path=/path/to/script 
+# export SAMBA_APPS_DIR=/set/to/parent/directory/of/repo # Uncomment and edit if this system variable isn't already set.
+mask=$1
+exam=${mask##*/};
+exam=${exam%%mask*}
+exam=${exam%_}
+parent_path=~/ 
+tmp=${parent_path}/fmbi_${exam}_tmp
+script_dir=${SAMBA_APPS_DIR}/Find_Mouse_Brain_Orientation/modeling
+echo "script_dir = ${script_dir}"
 echo "Writing tmp directory..."
-mkdir $parent_path/tmp/
-sed "s/#exam_id = ###input_exam###/exam_id = [\"$exam\"]/g" $parent_path/tf_orientation_template.py > $parent_path/tmp/tf_orientation_temp.py
-python $parent_path/tmp/tf_orientation_temp.py
+mkdir ${tmp}
+cp -r ${script_dir}/* ${tmp}/
+sed "s/#exam_id = ###input_exam###/exam_id = [\"$exam\"]/g" ${script_dir}/tf_orientation_template.py > ${tmp}/tf_orientation_temp.py
+python ${tmp}/tf_orientation_temp.py ${mask}
 echo "Cleaning tmp directory..."
-rm -r  $parent_path/tmp/
+rm -r  ${tmp}
 
 
 
