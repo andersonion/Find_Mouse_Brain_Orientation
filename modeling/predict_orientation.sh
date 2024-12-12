@@ -13,7 +13,8 @@
 # export SAMBA_APPS_DIR=/set/to/parent/directory/of/repo # Uncomment and edit if this system variable isn't already set.
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
 if [[ ! -d ${SAMBA_APPS_DIR} ]];then
-	export SAMBA_APPS_DIR=${SCRIPT_DIR}
+	SAMBA_APPS_DIR=${SCRIPT_DIR}
+	export SAMBA_APPS_DIR=${SAMBA_APPS_DIR#Find*}
 fi
 
 mask=$1
