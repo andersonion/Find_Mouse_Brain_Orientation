@@ -32,7 +32,7 @@ model = load_model(model_path)
 model.summary()
 
 #### load dictionary
-label_df = pd.read_csv(str(path1[0])+"/label_mapping.csv")  
+label_df = pd.read_csv(str(path1)+"/label_mapping.csv")  
 label_dict = pd.Series(label_df.name.values, index=label_df.label).to_dict()
 
 ### predict exam
