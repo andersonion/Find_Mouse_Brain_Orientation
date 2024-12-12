@@ -14,7 +14,7 @@
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
 if [[ ! -d ${SAMBA_APPS_DIR} ]];then
 	SAMBA_APPS_DIR=${SCRIPT_DIR}
-	export SAMBA_APPS_DIR=${SAMBA_APPS_DIR#Find*}
+	export SAMBA_APPS_DIR=${SAMBA_APPS_DIR%Find_Mouse*}
 fi
 
 mask=$1
