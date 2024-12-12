@@ -11,6 +11,11 @@
 
 #### use case: qsub -l h_vmem=64G predict_orientation.sh M22090514_dwi_mask_OF_prepped_AIL.nii.gz
 # export SAMBA_APPS_DIR=/set/to/parent/directory/of/repo # Uncomment and edit if this system variable isn't already set.
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
+if [[ ! -d ${SAMBA_APPS_DIR} ]];then
+	export SAMBA_APPS_DIR=${SCRIPT_DIR}
+fi
+
 mask=$1
 exam=${mask##*/};
 exam=${exam%%mask*}
